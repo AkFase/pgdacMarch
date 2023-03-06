@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Table with Pagination, Searching, and Scrollable View</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="table-container">
+    <div class="table-header">
+      <input type="text" id="search-input" placeholder="Search...">
+    </div>
+    <div class="table-scroll">
+      <table id="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>John Doe</td>
+            <td>john.doe@example.com</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Jane Smith</td>
+            <td>jane.smith@example.com</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Bob Johnson</td>
+            <td>bob.johnson@example.com</td>
+          </tr>
+          <!-- More data rows... -->
+        </tbody>
+      </table>
+    </div>
+    <div class="table-footer">
+      <div class="pagination">
+        <button id="prev-page-btn">Prev</button>
+        <span id="page-num"></span>
+        <button id="next-page-btn">Next</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
