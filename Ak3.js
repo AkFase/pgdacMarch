@@ -52,5 +52,18 @@ function updateTable() {
 
   pageNumSpan.textContent = `${currentPage} of ${totalPages}`;
 }
+function searchTable() {
+  let searchTerm = document.querySelector("#searchTerm").value.toLowerCase();
+  let tableRowsArray = Array.from(tableRows);
+  let matchingRows = tableRowsArray.filter((row) => {
+    return row.textContent.toLowerCase().includes(searchTerm);
+  });
+
+  currentPage = 1;
+  rowsPerPage = 20;
+  totalPages = Math.ceil(matchingRows.length / rowsPerPage);
+
+  updateTable();
+}
 
 updateTable();
