@@ -108,3 +108,49 @@ function updatePagination() {
   let paginationDiv = document.getElementById("paginationDiv");
   let pageNumSpan = document.getElementById("pageNumSpan");
   pagination
+
+function updatePagination() {
+  // Calculate the total number of pages based on the number of rows and rows per page
+  totalPages = Math.ceil(rows.length / rowsPerPage);
+
+  // Hide or show the previous button based on the current page
+  if (currentPage == 1) {
+    prevButton.disabled = true;
+  } else {
+    prevButton.disabled = false;
+  }
+
+  // Hide or show the next button based on the current page
+  if (currentPage == totalPages) {
+    nextButton.disabled = true;
+  } else {
+    nextButton.disabled = false;
+  }
+
+  // Update the page number text
+  pageNumSpan.textContent = `${currentPage} of ${totalPages}`;
+
+  // Clear the pagination list
+  paginationList.innerHTML = '';
+
+  // Loop through each page and create a pagination link
+  for (let i = 1; i <= totalPages; i++) {
+    const li = document.createElement('li');
+    const link = document.createElement('a');
+    link.textContent = i;
+
+    // Set the active class for the current page link
+    if (i === currentPage) {
+      link.classList.add('active');
+    }
+
+    // Set the onclick event to switch to the corresponding page
+    link.onclick = function () {
+      currentPage = i;
+      updateTable();
+    };
+
+    li.appendChild(link);
+    paginationList.appendChild(li);
+  }
+}
