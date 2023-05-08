@@ -1,0 +1,46 @@
+const responseList = [ /* response list from API */ ];
+
+const parent = document.getElementById("parent");
+
+responseList.forEach((question) => {
+  const child = document.createElement("div");
+  const label = document.createElement("label");
+  label.textContent = question.Question;
+  child.appendChild(label);
+
+  switch (question.AnswerTypeDesc.toLowerCase()) {
+    case "textbox":
+      const input = document.createElement("input");
+      input.type = "text";
+      input.id = question.ElementId;
+      child.appendChild(input);
+      break;
+
+    case "checkbox":
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = question.ElementId;
+      child.appendChild(checkbox);
+      break;
+
+    case "radio button":
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = question.Question;
+      radio.id = question.ElementId;
+      child.appendChild(radio);
+      break;
+
+    default:
+      break;
+  }
+
+  if (question.IsRequiredField === 1) {
+    const required = document.createElement("span");
+    required.textContent = " *";
+    required.style.color = "red";
+    label.appendChild(required);
+  }
+
+  parent.appendChild(child);
+});
