@@ -1,0 +1,29 @@
+function createInput(id, answer, answerTypeDesc) {
+  var inputDiv = document.createElement('div');
+  if(answerTypeDesc === 'checkbox') {
+    inputDiv.setAttribute('class', 'form-check');
+    var input = document.createElement('input');
+    input.setAttribute('type', 'checkbox');
+    input.setAttribute('class', 'form-check-input');
+    input.setAttribute('id', id);
+    input.checked = (answer.toLowerCase() === 'yes');
+    var label = document.createElement('label');
+    label.setAttribute('for', id);
+    label.innerText = 'Answer';
+    inputDiv.appendChild(input);
+    inputDiv.appendChild(label);
+  } else {
+    inputDiv.setAttribute('class', 'form-group');
+    var label = document.createElement('label');
+    label.setAttribute('for', id);
+    label.innerText = 'Answer';
+    var input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('class', 'form-control');
+    input.setAttribute('id', id);
+    input.value = answer;
+    inputDiv.appendChild(label);
+    inputDiv.appendChild(input);
+  }
+  return inputDiv;
+}
