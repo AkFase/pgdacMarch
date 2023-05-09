@@ -1,0 +1,85 @@
+const responseList = [ /* response list from API */ ];
+
+const parent = document.getElementById("parent");
+
+responseList.forEach((question) => {
+  const child = document.createElement("div");
+  child.className = "child";
+
+  const label = document.createElement("label");
+  label.textContent = question.Question;
+  child.appendChild(label);
+
+  if (question.IsRequiredField === 1) {
+    const required = document.createElement("span");
+    required.textContent = " *";
+    required.style.color = "red";
+    label.appendChild(required);
+  }
+
+  let answerElement;
+
+  switch (question.AnswerTypeDesc.toLowerCase()) {
+    case "textbox":
+      answerElement = document.createElement("input");
+      answerElement.type = "text";
+      answerElement.id = question.ElementId;
+      child.appendChild(answerElement);
+      break;
+
+    case "checkbox":
+      answerElement = document.createElement("input");
+      answerElement.type = "checkbox";
+      answerElement.id = question.ElementId;
+      child.appendChild(answerElement);
+      break;
+
+    case "radio button":
+      answerElement = document.createElement("input");
+      answerElement.type = "radio";
+      answerElement.name = question.Question;
+      answerElement.id = question.ElementId;
+      child.appendChild(answerElement);
+      break;
+
+    case "textarea":
+      answerElement = document.createElement("textarea");
+      answerElement.id = question.ElementId;
+      child.appendChild(answerElement);
+      break;
+
+    default:
+      break;
+  }
+
+  if (answerElement) {
+    const answerLabel = document.createElement("label");
+    answerLabel.textContent = "Answer:";
+    child.appendChild(answerLabel);
+
+    const answerInput = document.createElement("input");
+    answerInput.type = "text";
+    answerInput.value = question.Answer;
+    answerInput.readOnly = true;
+    child.appendChild(answerInput);
+  }
+
+  parent.appendChild(child);
+});
+
+
+function createTextBox(id) {
+  var textBoxDiv = document.createElement('div');
+  textBoxDiv.setAttribute('class', 'form-group');
+  var label = document.createElement('label');
+  label.setAttribute('for', id);
+  label.innerText = 'Answer';
+  var input = document.createElement('input');
+  input.setAttribute('type', 'text');
+  input.setAttribute('class', 'form-control');
+  input.setAttribute('id', id);
+  textBoxDiv.appendChild(label);
+  textBoxDiv.appendChild(input);
+  return textBoxDiv;
+}
+
