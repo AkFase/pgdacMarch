@@ -1,0 +1,105 @@
+function createInput(id, answer, answerTypeDesc) {
+  var inputDiv = document.createElement('div');
+  inputDiv.setAttribute('class', 'form-group');
+  
+  var label = document.createElement('label');
+  label.setAttribute('for', id);
+  label.innerText = 'Answer';
+  
+  var inputElement;
+  
+  switch (answerTypeDesc.toLowerCase()) {
+    case 'textbox':
+      inputElement = document.createElement('input');
+      inputElement.setAttribute('type', 'text');
+      inputElement.setAttribute('class', 'form-control');
+      inputElement.setAttribute('id', id);
+      inputElement.value = answer;
+      break;
+
+    case 'checkbox':
+      inputElement = document.createElement('input');
+      inputElement.setAttribute('type', 'checkbox');
+      inputElement.setAttribute('class', 'form-check-input');
+      inputElement.setAttribute('id', id);
+      inputElement.checked = (answer.toLowerCase() === 'yes');
+      break;
+
+    case 'multiple checkbox':
+      var checkboxValues = answer.split(',');
+      for (var i = 0; i < checkboxValues.length; i++) {
+        var checkboxId = id + '_' + i;
+        
+        var checkbox = document.createElement('input');
+        checkbox.setAttribute('type', 'checkbox');
+        checkbox.setAttribute('class', 'form-check-input');
+        checkbox.setAttribute('id', checkboxId);
+        checkbox.checked = (checkboxValues[i].toLowerCase() === 'yes');
+        
+        var checkboxLabel = document.createElement('label');
+        checkboxLabel.setAttribute('for', checkboxId);
+        checkboxLabel.innerText = checkboxValues[i];
+        
+        var checkboxDiv = document.createElement('div');
+        checkboxDiv.setAttribute('class', 'form-check');
+        checkboxDiv.appendChild(checkbox);
+        checkboxDiv.appendChild(checkboxLabel);
+        
+        inputDiv.appendChild(checkboxDiv);
+      }
+      break;
+
+    case 'dropdown':
+      var dropdownValues = answer.split(',');
+      
+      inputElement = document.createElement('select');
+      inputElement.setAttribute('class', 'form-control');
+      inputElement.setAttribute('id', id);
+
+      for (var i = 0; i < dropdownValues.length; i++) {
+        var option = document.createElement('option');
+        option.text = dropdownValues[i];
+        inputElement.add(option);
+      }
+      break;
+
+    case 'radio button':
+      var radioButtonValues = answer.split(',');
+      
+      var radioButtonDiv = document.createElement('div');
+      radioButtonDiv.setAttribute('class', 'form-check');
+      
+      for (var i = 0; i < radioButtonValues.length; i++) {
+        var radioButtonId = id + '_' + i;
+        
+        var radioButton = document.createElement('input');
+        radioButton.setAttribute('type', 'radio');
+        radioButton.setAttribute('class', 'form-check-input');
+        radioButton.setAttribute('id', radioButtonId);
+        radioButton.setAttribute('name', id);
+        radioButton.checked = (radioButtonValues[i].toLowerCase() === 'yes');
+        
+        var radioButtonLabel = document.createElement('label');
+        radioButtonLabel.setAttribute('for', radioButtonId);
+        radioButtonLabel.innerText = radioButtonValues[i];
+        
+        radioButtonDiv.appendChild(radioButton);
+        radioButtonDiv.appendChild(radioButtonLabel);
+      }
+      
+      inputDiv.appendChild(radioButtonDiv);
+      break;
+
+    case 'yes or no':
+      inputElement = document.createElement('select');
+      inputElement.setAttribute('class', 'form-control');
+      inputElement.setAttribute('id', id);
+      
+      var option1 = document.createElement('option');
+      option1.text = 'Yes';
+      option1.value = 'yes';
+      if (answer.toLowerCase() === 'yes') {
+        option1.selected = true;
+      }
+      
+      var option2
